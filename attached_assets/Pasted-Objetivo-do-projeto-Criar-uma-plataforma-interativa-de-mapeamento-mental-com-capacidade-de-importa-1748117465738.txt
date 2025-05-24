@@ -1,0 +1,63 @@
+Objetivo do projeto:
+Criar uma plataforma interativa de mapeamento mental com capacidade de importar arquivos em Markdown e convertê-los automaticamente em mapas mentais editáveis em tempo real. Baseado no MarkMind, o projeto será expandido para incluir recursos avançados de visualização, edição, IA e exportação.
+
+💡 DIFERENCIAIS A IMPLEMENTAR
+✅ Leitura e Sincronização Dinâmica com Arquivos Markdown
+
+Monitorar alterações em arquivos .md para refletir mudanças em tempo real nos mapas mentais.
+
+Adição de novos nós diretamente no editor Markdown e visualização instantânea no mapa.
+
+✍️ Edição Visual Interativa Avançada
+
+Adicionar/remover/editar nós com drag & drop.
+
+Alterar forma dos nós: círculo, quadrado, imagem embutida, etc.
+
+Permitir múltiplos pontos de partida (nós raiz) com ramificações cruzadas.
+
+🗃️ Sistema de Organização
+
+Criação de múltiplos mapas mentais.
+
+Pastas para organização por temas, projetos ou tópicos.
+
+Busca avançada por conteúdo textual nos nós.
+
+🧠🤖 Apresentação Automática com IA
+
+Usar IA (ex: OpenAI API) para gerar uma narrativa/apresentação interativa do mapa mental.
+
+Criar modo de slides com transições baseadas na hierarquia dos nós.
+
+🖼️ Suporte Multimídia nos Nós
+
+Upload de imagens.
+
+Embeds para vídeo (YouTube, Loom etc).
+
+Visualização de diagramas ou código diretamente no nó.
+
+📎 Relacionamentos Complexos
+
+Interseções e vínculos entre ramos distintos.
+
+Marcação de dependências e conexões lógicas entre nós.
+
+🎨 Layout Personalizável
+
+Layouts dinâmicos: árvore, radial, forçado, custom.
+
+Edição com ferramenta visual tipo "caixa de ferramentas" para customização total dos nós.
+
+📤 Exportações Inteligentes
+
+PNG, PDF, SVG, além de integração com XMind, FreeMind e Obsidian.
+
+Exportar estrutura como texto estruturado + imagens (Markdown enriquecido).
+
+✅ Contexto Especializado
+
+Pensado para sistemas críticos (como mapeamento de estruturas de dados).
+
+Classificação automática de nós por tipo de funcionalidade, risco, legislação aplicável, etc.
