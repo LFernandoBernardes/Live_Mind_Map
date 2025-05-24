@@ -17,4 +17,4 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd markdown-mindmap-app && npm run dev -- --host 0.0.0.0"
+args = "cd markdown-mindmap-app && npm install && npm run dev -- --host 0.0.0.0"
