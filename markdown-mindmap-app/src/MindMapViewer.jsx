@@ -6,7 +6,18 @@ const NODE_SHAPES = {
   DEFAULT: 'rect',
   CIRCLE: 'circle',
   SQUARE: 'rect',
-  ROUNDED: 'roundedrect'
+  ROUNDED: 'roundedrect',
+  DIAMOND: 'diamond',
+  FOLDER: 'folder'
+};
+
+const NODE_STYLES = {
+  fontSize: '14px',
+  padding: '8px',
+  borderRadius: '4px',
+  backgroundColor: '#ffffff',
+  borderColor: '#000000',
+  borderWidth: '1px'
 };
 
 const MindMapViewer = ({ 

@@ -1,27 +1,29 @@
 
 import React from 'react';
 
-const StyleToolbar = ({ onShapeChange, onColorChange, onSizeChange }) => {
+const StyleToolbar = ({ onStyleChange, selectedNodeId }) => {
+  const handleShapeChange = (e) => {
+    onStyleChange(selectedNodeId, { shape: e.target.value });
+  };
+
+  const handleColorChange = (e) => {
+    onStyleChange(selectedNodeId, { backgroundColor: e.target.value });
+  };
+
+  const handleBorderChange = (e) => {
+    onStyleChange(selectedNodeId, { borderColor: e.target.value });
+  };
+
   return (
     <div className="style-toolbar">
-      <select onChange={(e) => onShapeChange(e.target.value)}>
+      <select onChange={handleShapeChange}>
         <option value="rect">Rectangle</option>
         <option value="circle">Circle</option>
-        <option value="roundedrect">Rounded</option>
+        <option value="diamond">Diamond</option>
+        <option value="folder">Folder</option>
       </select>
-      <input 
-        type="color" 
-        onChange={(e) => onColorChange(e.target.value)} 
-        title="Node Color"
-      />
-      <input 
-        type="range" 
-        min="10" 
-        max="30" 
-        defaultValue="16" 
-        onChange={(e) => onSizeChange(e.target.value)}
-        title="Font Size" 
-      />
+      <input type="color" onChange={handleColorChange} title="Fill Color" />
+      <input type="color" onChange={handleBorderChange} title="Border Color" />
     </div>
   );
 };
