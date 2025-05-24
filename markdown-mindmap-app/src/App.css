@@ -5,27 +5,26 @@ body, html {
   height: 100%;
   width: 100%;
   font-family: sans-serif;
-  /* overflow: hidden; /* App.jsx now uses Fragment, body can scroll if needed, panes manage their own */
 }
 
 /* Make root element take full space too */
 #root {
   height: 100%;
   width: 100%;
-  display: flex; /* Ensure #root is a flex container if App uses Fragments directly */
-  flex-direction: column; /* Stack file-operations and app-container vertically */
+  display: flex; 
+  flex-direction: column; 
 }
 
-.file-operations {
+.file-operations, .node-operations { /* Group common styling */
   display: flex;
-  gap: 10px; /* Space between buttons */
+  gap: 10px; 
   padding: 10px;
   background-color: #f0f0f0;
   border-bottom: 1px solid #ccc;
-  flex-shrink: 0; /* Prevent this bar from shrinking */
+  flex-shrink: 0; 
 }
 
-.file-operations button {
+.file-operations button, .node-operations button { /* Group common styling */
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -33,16 +32,21 @@ body, html {
   cursor: pointer;
 }
 
-.file-operations button:hover {
+.file-operations button:hover, .node-operations button:hover { /* Group common styling */
   background-color: #e9e9e9;
+}
+
+.node-operations .selected-node-info {
+  margin-left: auto; /* Push to the right */
+  padding: 8px 12px;
+  font-size: 0.9em;
+  color: #333;
 }
 
 .app-container {
   display: flex;
-  /* height: 100vh; /* This was causing issues with .file-operations. Let flex grow. */
-  /* width: 100vw; */
-  flex-grow: 1; /* Allow app-container to take remaining space */
-  overflow: hidden; /* Prevent scrollbars on the app-container itself if panes manage their own */
+  flex-grow: 1; 
+  overflow: hidden; 
 }
 
 .left-pane {
@@ -50,47 +54,57 @@ body, html {
   padding: 15px;
   border-right: 2px solid #ddd;
   background-color: #f9f9f9;
-  overflow-y: auto; /* Allow scrolling if content overflows */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-  display: flex; /* To allow MarkdownEditor child to take full height */
-  flex-direction: column; /* Stack children vertically */
+  overflow-y: auto; 
+  box-sizing: border-box; 
+  display: flex; 
+  flex-direction: column; 
 }
 
 .right-pane {
   width: 60%;
   padding: 15px;
-  display: flex; /* To help manage the SVG child */
-  flex-direction: column; /* Stack children vertically */
-  overflow: hidden; /* SVG will be managed by MindMapViewer's own styles if needed */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  display: flex; 
+  flex-direction: column; 
+  overflow: hidden; 
+  box-sizing: border-box; 
 }
 
-/* Ensure MindMapViewer's SVG scales correctly within the right pane */
 .right-pane svg {
   width: 100%;
-  height: 100%; /* Make SVG take full height of its container in MindMapViewer */
-  display: block; /* Remove extra space below SVG if it's inline */
+  height: 100%; 
+  display: block; 
+}
+
+/* Styling for the selected node in MindMapViewer */
+.selected-node > rect, 
+.selected-node > ellipse { /* Markmap uses rects for most nodes, ellipses for roots sometimes */
+  stroke: #007bff !important; /* Blue stroke for selection */
+  stroke-width: 2.5px !important; /* Make it clearly visible */
+  /* fill: #e7f3ff !important; /* Optional: light blue fill */
 }
 
 /* Basic responsiveness: stack panes on smaller screens */
 @media (max-width: 768px) {
   .app-container {
     flex-direction: column;
-    height: auto; /* Adjust height for stacked layout, allow scrolling for whole page */
+    height: auto; 
     width: 100%;
-    overflow: visible; /* Allow page to scroll */
+    overflow: visible; 
   }
 
   .left-pane,
   .right-pane {
-    width: 100%; /* Full width for stacked panes */
-    border-right: none; /* Remove side border for stacked layout */
-    border-bottom: 2px solid #ddd; /* Add border between stacked panes */
-    min-height: 300px; /* Example minimum height for usability */
-    /* overflow-y: visible; /* Allow content to determine height, then outer container scrolls */
+    width: 100%; 
+    border-right: none; 
+    border-bottom: 2px solid #ddd; 
+    min-height: 300px; 
   }
 
   .right-pane {
-    border-bottom: none; /* No border at the very bottom of the page */
+    border-bottom: none; 
+  }
+
+  .file-operations, .node-operations {
+    flex-wrap: wrap; /* Allow buttons to wrap on small screens */
   }
 }
