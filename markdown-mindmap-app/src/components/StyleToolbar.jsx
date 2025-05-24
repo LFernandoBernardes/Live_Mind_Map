@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-const StyleToolbar = ({ onStyleChange, selectedNodeId }) => {
+const StyleToolbar = ({ onStyleChange, selectedNodeId, onAddChild, onAddSibling, onDelete }) => {
   const handleShapeChange = (e) => {
     onStyleChange(selectedNodeId, { shape: e.target.value });
   };

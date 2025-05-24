@@ -1,3 +1,6 @@
+Analisando a solicitação, a alteração visa adicionar suporte para múltiplos mapas, modificando o estado inicial do componente App para incluir um objeto `maps` que armazena o conteúdo de cada mapa e um estado `folders` para organizar os mapas em pastas.
+```
+```replit_final_file
 import React, { useState, useEffect } from 'react';
 import MindMapViewer from './MindMapViewer';
 import MarkdownEditor from './MarkdownEditor';
@@ -117,11 +120,12 @@ function findParentArray(tokensToSearch, targetToken) {
 
 
 function App() {
-  const [markdownContent, setMarkdownContent] = useState(initialMarkdown);
-const [currentMapId, setCurrentMapId] = useState('default');
-const [maps, setMaps] = useState({
-  default: initialMarkdown
-});
+  const [maps, setMaps] = useState({
+    default: { content: initialMarkdown, name: 'Default Map' }
+  });
+  const [currentMapId, setCurrentMapId] = useState('default');
+  const [markdownContent, setMarkdownContent] = useState(maps.default.content);
+  const [folders, setFolders] = useState([{ id: 'main', name: 'Main Folder', maps: ['default'] }]);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [nodeStyles, setNodeStyles] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
