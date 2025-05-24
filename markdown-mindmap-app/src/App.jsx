@@ -117,14 +117,10 @@ function findParentArray(tokensToSearch, targetToken) {
 
 
 function App() {
-  const [maps, setMaps] = useState([{ id: 'default', content: initialMarkdown }]);
-  const [currentMapId, setCurrentMapId] = useState('default');
-  const [currentFileHandle, setCurrentFileHandle] = useState(null);
+  const [markdownContent, setMarkdownContent] = useState(initialMarkdown);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [nodeStyles, setNodeStyles] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
-
-  const markdownContent = maps.find(m => m.id === currentMapId)?.content || '';
 
   const handleStyleChange = (nodeId, style) => {
     setNodeStyles(prev => ({
@@ -149,7 +145,7 @@ function App() {
 
   const addNewMap = () => {
     const newId = `map-${Date.now()}`;
-    setMaps(prev => [...prev, { id: newId, content: '# New Mind Map\n' }]);
+    setMarkdownContent(prev => [...prev, { id: newId, content: '# New Mind Map\n' }]);
     setCurrentMapId(newId);
   };
 
