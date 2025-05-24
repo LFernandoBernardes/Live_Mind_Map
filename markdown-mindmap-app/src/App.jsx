@@ -118,6 +118,10 @@ function findParentArray(tokensToSearch, targetToken) {
 
 function App() {
   const [markdownContent, setMarkdownContent] = useState(initialMarkdown);
+const [currentMapId, setCurrentMapId] = useState('default');
+const [maps, setMaps] = useState({
+  default: initialMarkdown
+});
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [nodeStyles, setNodeStyles] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
