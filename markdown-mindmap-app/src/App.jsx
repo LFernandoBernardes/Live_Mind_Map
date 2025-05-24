@@ -81,7 +81,7 @@ function findTokenByPath(tokens, path, originalTokensRef = tokens) {
                                 listAfterHeading = headingParentArray[headingIndexInParent+1];
                              }
                         }
-                        
+
                         if (listAfterHeading) {
                             parentTokenContext = listAfterHeading;
                             currentTokens = listAfterHeading.items || [];
@@ -117,9 +117,41 @@ function findParentArray(tokensToSearch, targetToken) {
 
 
 function App() {
-  const [markdownContent, setMarkdownContent] = useState(initialMarkdown);
+  const [maps, setMaps] = useState([{ id: 'default', content: initialMarkdown }]);
+  const [currentMapId, setCurrentMapId] = useState('default');
   const [currentFileHandle, setCurrentFileHandle] = useState(null);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
+  const [nodeStyles, setNodeStyles] = useState({});
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const markdownContent = maps.find(m => m.id === currentMapId)?.content || '';
+
+  const handleStyleChange = (nodeId, style) => {
+    setNodeStyles(prev => ({
+      ...prev,
+      [nodeId]: { ...prev[nodeId], ...style }
+    }));
+  };
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    // Highlight nodes containing the search query
+    const nodes = document.querySelectorAll('.markmap-node');
+    nodes.forEach(node => {
+      const text = node.textContent.toLowerCase();
+      if (text.includes(query.toLowerCase())) {
+        node.classList.add('search-highlight');
+      } else {
+        node.classList.remove('search-highlight');
+      }
+    });
+  };
+
+  const addNewMap = () => {
+    const newId = `map-${Date.now()}`;
+    setMaps(prev => [...prev, { id: newId, content: '# New Mind Map\n' }]);
+    setCurrentMapId(newId);
+  };
 
   const checkFileApiSupport = () => { /* ... */ return true;};
   const handleOpenFile = async () => { /* ... */ };
@@ -156,7 +188,7 @@ function App() {
         console.warn(`Dragged token ${draggedNodeId} not found.`);
         return prevMarkdown;
       }
-      
+
       const { token: draggedToken, parentArray: draggedTokenParentArray, index: draggedTokenIndex, parentListToken: draggedTokenParentList } = draggedResult;
 
       // Detach (remove) the token from its original position
@@ -165,7 +197,7 @@ function App() {
           return prevMarkdown;
       }
       draggedTokenParentArray.splice(draggedTokenIndex, 1);
-      
+
       // Heuristically update raw text of the source list if applicable
       if (draggedTokenParentList && draggedTokenParentList.items) {
         draggedTokenParentList.raw = (draggedTokenParentList.items.map(it => it.raw || `- ${it.text}\n`).join('')).trim();

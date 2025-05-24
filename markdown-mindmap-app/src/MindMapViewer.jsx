@@ -2,7 +2,21 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Transformer } from 'markmap-lib';
 import { Markmap } from 'markmap-view';
 
-const MindMapViewer = ({ markdown, onNodeEditComplete, selectedNodeId, setSelectedNodeId, onNodeReparent }) => {
+const NODE_SHAPES = {
+  DEFAULT: 'rect',
+  CIRCLE: 'circle',
+  SQUARE: 'rect',
+  ROUNDED: 'roundedrect'
+};
+
+const MindMapViewer = ({ 
+  markdown, 
+  onNodeEditComplete, 
+  selectedNodeId, 
+  setSelectedNodeId, 
+  onNodeReparent,
+  nodeShape = NODE_SHAPES.DEFAULT 
+}) => {
   const svgRef = useRef();
   const mmRef = useRef();
   const inputRef = useRef(); 
