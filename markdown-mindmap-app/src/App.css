@@ -1,0 +1,96 @@
+/* Reset basic body/html styles for full-screen layout */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: sans-serif;
+  /* overflow: hidden; /* App.jsx now uses Fragment, body can scroll if needed, panes manage their own */
+}
+
+/* Make root element take full space too */
+#root {
+  height: 100%;
+  width: 100%;
+  display: flex; /* Ensure #root is a flex container if App uses Fragments directly */
+  flex-direction: column; /* Stack file-operations and app-container vertically */
+}
+
+.file-operations {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  flex-shrink: 0; /* Prevent this bar from shrinking */
+}
+
+.file-operations button {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.file-operations button:hover {
+  background-color: #e9e9e9;
+}
+
+.app-container {
+  display: flex;
+  /* height: 100vh; /* This was causing issues with .file-operations. Let flex grow. */
+  /* width: 100vw; */
+  flex-grow: 1; /* Allow app-container to take remaining space */
+  overflow: hidden; /* Prevent scrollbars on the app-container itself if panes manage their own */
+}
+
+.left-pane {
+  width: 40%;
+  padding: 15px;
+  border-right: 2px solid #ddd;
+  background-color: #f9f9f9;
+  overflow-y: auto; /* Allow scrolling if content overflows */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  display: flex; /* To allow MarkdownEditor child to take full height */
+  flex-direction: column; /* Stack children vertically */
+}
+
+.right-pane {
+  width: 60%;
+  padding: 15px;
+  display: flex; /* To help manage the SVG child */
+  flex-direction: column; /* Stack children vertically */
+  overflow: hidden; /* SVG will be managed by MindMapViewer's own styles if needed */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Ensure MindMapViewer's SVG scales correctly within the right pane */
+.right-pane svg {
+  width: 100%;
+  height: 100%; /* Make SVG take full height of its container in MindMapViewer */
+  display: block; /* Remove extra space below SVG if it's inline */
+}
+
+/* Basic responsiveness: stack panes on smaller screens */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+    height: auto; /* Adjust height for stacked layout, allow scrolling for whole page */
+    width: 100%;
+    overflow: visible; /* Allow page to scroll */
+  }
+
+  .left-pane,
+  .right-pane {
+    width: 100%; /* Full width for stacked panes */
+    border-right: none; /* Remove side border for stacked layout */
+    border-bottom: 2px solid #ddd; /* Add border between stacked panes */
+    min-height: 300px; /* Example minimum height for usability */
+    /* overflow-y: visible; /* Allow content to determine height, then outer container scrolls */
+  }
+
+  .right-pane {
+    border-bottom: none; /* No border at the very bottom of the page */
+  }
+}
